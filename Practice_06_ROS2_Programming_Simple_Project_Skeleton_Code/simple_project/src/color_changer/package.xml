@@ -11,6 +11,8 @@
 
   <depend>rclcpp</depend>
   <!-- ===================TODO - add other dependencies==================== -->
+  <depend>turtlesim</depend>
+  <depend>my_msgs</depend>
   <!-- ~~~ -->
   <!-- =============================================================================== -->
 
