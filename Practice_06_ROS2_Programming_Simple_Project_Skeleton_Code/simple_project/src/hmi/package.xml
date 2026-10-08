@@ -4,14 +4,16 @@
   <name>hmi</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="sunghoon8585@gmail.com">delcoii</maintainer>
+  <maintainer email="smkang03@hanyang.ac.kr">Seungmin Kang</maintainer>
   <license>TODO: License declaration</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <depend>rclcpp</depend>
   <!-- ===================TODO - add other dependencies==================== -->
-  <!-- ~~~ -->
+  <depend>turtlesim</depend>
+  <depend>my_msgs</depend>
+  <depend>visualization_msgs</depend>
   <!-- =============================================================================== -->
 
   <test_depend>ament_lint_auto</test_depend>
