@@ -13,6 +13,7 @@
 // -------------------TODO - include the message header file used in this node--------------------
 // ~~~
 // -------------------------------------------------------------------------------
+#include "geometry_msgs/msg/twist.hpp"
 
 
 class MovingTurtle : public rclcpp::Node   {
@@ -28,6 +29,7 @@ class MovingTurtle : public rclcpp::Node   {
         // -------------------TODO - declare a publisher for the turtle velocity command--------------------
         // ~~~
         // -------------------------------------------------------------------------------
+        rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr p_turtle_cmd_;
 
         // Timer
         rclcpp::TimerBase::SharedPtr t_run_node_;

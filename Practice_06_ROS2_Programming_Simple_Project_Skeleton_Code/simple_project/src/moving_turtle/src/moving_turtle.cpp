@@ -7,6 +7,8 @@ MovingTurtle::MovingTurtle(const std::string& node_name, const double& loop_rate
     // -------------------TODO - define a publisher for the turtle velocity command--------------------
     // ~~~
     // -------------------------------------------------------------------------------
+    p_turtle_cmd_ = this->create_publisher<geometry_msgs::msg::Twist>(
+    "/turtle1/cmd_vel", 10);
 
     t_run_node_ = this->create_wall_timer(
             std::chrono::microseconds((int64_t)(1e6 / loop_rate)),
@@ -23,6 +25,8 @@ void MovingTurtle::Run(const rclcpp::Time &current_time) {
     // -------------------TODO - implement the algorithm to move the turtle--------------------
     // ~~~
     // -------------------------------------------------------------------------------
+    vx = 1.0;
+    yawrate = 1.0;
 
     loop_count_ += 1;
 
