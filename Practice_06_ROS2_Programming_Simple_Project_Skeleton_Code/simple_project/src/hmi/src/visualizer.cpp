@@ -7,7 +7,19 @@ Visualizer::Visualizer(const std::string& node_name, const double& loop_rate)
     auto qos_profile = rclcpp::QoS(rclcpp::KeepLast(10));
 
     // -------------------TODO - define publisher and subscriber--------------------
-    // ~~~
+    // publisher : cube marker -> RViz
+    p_turtle_marker_ = this->create_publisher<visualization_msgs::msg::Marker>(
+        "/hmi/turtle_marker", qos_profile);
+
+    // subscriber : turtle pose <- turtlesim node
+    s_turtle_pose_ = this->create_subscription<turtlesim::msg::Pose>(
+        "/turtle1/pose", qos_profile,
+        std::bind(&Visualizer::CallbackTurtlePose, this, std::placeholders::_1));
+
+    // subscriber : background color (custom message) <- color_changer node
+    s_turtle_color_ = this->create_subscription<my_msgs::msg::TurtleColor>(
+        "/turtle_color", qos_profile,
+        std::bind(&Visualizer::CallbackTurtleColor, this, std::placeholders::_1));
     // -------------------------------------------------------------------------------
 
     t_run_node_ = this->create_wall_timer(
@@ -38,29 +50,29 @@ void Visualizer::UpdateMarker(  const rclcpp::Time& current_time,
     visualization_msgs::msg::Marker marker_msg;
 
     // -------------------TODO - fill in the marker field values (header, type, action, pose, scale, color)--------------------
-    marker_msg.header.frame_id = /* ~~~ */;
-    marker_msg.header.stamp = /* ~~~ */;
+    marker_msg.header.frame_id = "map";
+    marker_msg.header.stamp = current_time;
     marker_msg.ns = "basic_shapes";
     marker_msg.id = 0;
-    marker_msg.type = /* ~~~ */;
-    marker_msg.action = /* ~~~ */;
+    marker_msg.type = visualization_msgs::msg::Marker::CUBE;
+    marker_msg.action = visualization_msgs::msg::Marker::ADD;
 
-    marker_msg.pose.position.x = /* ~~~ */;
-    marker_msg.pose.position.y = /* ~~~ */;
-    marker_msg.pose.position.z = /* ~~~ */;
-    marker_msg.pose.orientation.x = /* ~~~ */;
-    marker_msg.pose.orientation.y = /* ~~~ */;
-    marker_msg.pose.orientation.z = /* ~~~ */;
-    marker_msg.pose.orientation.w = /* ~~~ */;
+    marker_msg.pose.position.x = turtle_pose.x;
+    marker_msg.pose.position.y = turtle_pose.y;
+    marker_msg.pose.position.z = 0.0;
+    marker_msg.pose.orientation.x = 0.0;
+    marker_msg.pose.orientation.y = 0.0;
+    marker_msg.pose.orientation.z = 0.0;
+    marker_msg.pose.orientation.w = 1.0;
 
-    marker_msg.scale.x = /* ~~~ */;
-    marker_msg.scale.y = /* ~~~ */;
-    marker_msg.scale.z = /* ~~~ */;
+    marker_msg.scale.x = 1.0;
+    marker_msg.scale.y = 1.0;
+    marker_msg.scale.z = 1.0;
 
-    marker_msg.color.r = /* ~~~ */;
-    marker_msg.color.g = /* ~~~ */;
-    marker_msg.color.b = /* ~~~ */;
-    marker_msg.color.a = /* ~~~ */;
+    marker_msg.color.r = turtle_color.r;
+    marker_msg.color.g = turtle_color.g;
+    marker_msg.color.b = turtle_color.b;
+    marker_msg.color.a = 1.0;
     // -------------------------------------------------------------------------------
     
     o_turtle_marker_ = marker_msg;

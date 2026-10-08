@@ -13,7 +13,9 @@
 #include "rclcpp/rclcpp.hpp"
 
 // -------------------TODO - include the message header files used in this node--------------------
-// ~~~
+#include "turtlesim/msg/pose.hpp"
+#include "my_msgs/msg/turtle_color.hpp"
+#include "visualization_msgs/msg/marker.hpp"
 // -------------------------------------------------------------------------------
 
 
@@ -44,12 +46,13 @@ class Visualizer : public rclcpp::Node   {
         
         // Publisher 
         // -------------------TODO - declare a publisher for the turtle marker--------------------
-        // ~~~
+        rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr p_turtle_marker_;
         // -------------------------------------------------------------------------------
 
         // Subscriber
         // -------------------TODO - declare subscribers for the turtle pose and turtle color--------------------
-        // ~~~
+        rclcpp::Subscription<turtlesim::msg::Pose>::SharedPtr s_turtle_pose_;
+        rclcpp::Subscription<my_msgs::msg::TurtleColor>::SharedPtr s_turtle_color_;
         // -------------------------------------------------------------------------------
 
         // Timer
