@@ -18,25 +18,27 @@ MovingTurtle::MovingTurtle(const std::string& node_name, const double& loop_rate
 
 
 void MovingTurtle::Run(const rclcpp::Time &current_time) {
+    (void)current_time; 
 
-    double vx;
-    double yawrate;
+    double vx = 0.0;
+    double yawrate = 0.0;
 
-    // -------------------TODO - implement the algorithm to move the turtle--------------------
-    // ~~~
-    // -------------------------------------------------------------------------------
-    vx = 1.0;
-    yawrate = 1.0;
+ 
+    if (loop_count_ < 100) {
+        vx = 2.0;
+        yawrate = 0.0;
+    } else {
+        vx = 0.0;
+        yawrate = 1.0;
+    }
 
-    loop_count_ += 1;
+    loop_count_ = (loop_count_ + 1) % 200;
 
-    ///////////////////////////////////////
     o_turtle_cmd_.linear.x = vx;
     o_turtle_cmd_.angular.z = yawrate;
 
     Publish(current_time);
 }
-
 
 void MovingTurtle::Publish(const rclcpp::Time &current_time) {
     p_turtle_cmd_->publish(o_turtle_cmd_);
