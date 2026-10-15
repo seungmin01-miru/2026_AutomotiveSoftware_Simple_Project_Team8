@@ -2,6 +2,19 @@
 
 <launch>
     <!-- ===================TODO - add the nodes to be launched==================== -->
-    <!-- ~~~ -->
+    <!-- turtlesim : node name must stay "turtlesim" (color_changer sets params on /turtlesim) -->
+    <node pkg="turtlesim" exec="turtlesim_node" name="turtlesim" output="screen"/>
+
+    <!-- /turtle1/cmd_vel publisher -->
+    <node pkg="moving_turtle" exec="moving_turtle" name="moving_turtle" output="screen"/>
+
+    <!-- /turtle1/pose -> background color param & /turtle_color -->
+    <node pkg="color_changer" exec="color_changer" name="color_changer" output="screen"/>
+
+    <!-- /turtle1/pose & /turtle_color -> /hmi/turtle_marker -->
+    <node pkg="hmi" exec="hmi" name="hmi" output="screen"/>
+
+    <!-- visualize /hmi/turtle_marker -->
+    <node pkg="rviz2" exec="rviz2" name="rviz2" args="-d $(dirname)/../rviz/simple_project.rviz"/>
     <!-- =============================================================================== -->
 </launch>
